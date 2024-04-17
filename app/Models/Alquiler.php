@@ -34,6 +34,6 @@ class Alquiler extends Model
 
     public function auto(): BelongsTo
     {
-        return $this->belongsTo(Vehiculo::class, "autoID", "id");
+        return $this->belongsTo(Vehiculo::class, "vehiculoID", "id");
     }
 }

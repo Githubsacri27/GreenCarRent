@@ -211,7 +211,7 @@ class DatabaseSeeder extends Seeder
             DB::table('alquiler')->insert([
                 'id' => $i + 1,
                 'clienteID' => $cliente[$i]->id,
-                'autoID' => $i + 1,
+                'vehiculoID' => $i + 1,
                 'importe' => Vehiculo::find($i + 1)->CostoDiario * date_diff($fechaRecogida, $fechaEntrega)->days,
                 'fechaRecogida' => $fechaRecogida->toDate(),
                 'lugarRecogida' => 'Aeropuerto el Prat del Llobregat',

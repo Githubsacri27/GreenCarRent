@@ -32,6 +32,6 @@ class Vehiculo extends Model
 
     public function alquiler(): HasMany
     {
-        return $this->hasMany(Alquiler::class, "autoID", "id");
+        return $this->hasMany(Alquiler::class, "vehiculoID", "id");
     }
 }
