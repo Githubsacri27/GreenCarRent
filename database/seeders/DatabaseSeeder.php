@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 1,
                 'username' => 'clientecliente',
-                'password' => bcrypt('Qwerty123@'),
+                'password' => bcrypt('Focr12345@'),
                 'utenteable_id' => 1,
                 'utenteable_type' => 'App\Models\Cliente',
                 'remember_token' => Str::random(10)
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 2,
                 'username' => 'empleadoempleado',
-                'password' => bcrypt('Qwerty123@'),
+                'password' => bcrypt('Focr12345@'),
                 'utenteable_id' => 1,
                 'utenteable_type' => 'App\Models\Empleado',
                 'remember_token' => Str::random(10)
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
             [
                 'id' => 3,
                 'username' => 'adminadmin',
-                'password' => bcrypt('Qwerty123@'),
+                'password' => bcrypt('Focr12345@'),
                 'utenteable_id' => null,
                 'utenteable_type' => "Admin",
                 'remember_token' => Str::random(10)

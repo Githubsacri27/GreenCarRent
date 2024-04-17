@@ -23,8 +23,8 @@ return new class extends Migration
             $table->boolean("activo");
             $table->unsignedBigInteger("clienteID" );
             $table->foreign('clienteID')->references('id')->on('cliente')->onDelete('cascade');
-            $table->unsignedBigInteger("autoID");
-            $table->foreign('autoID')->references('id')->on('auto')->onDelete('cascade');
+            $table->unsignedBigInteger("vehiculoID");
+            $table->foreign('vehiculoID')->references('id')->on('vehiculo')->onDelete('cascade');
         });
     }
 

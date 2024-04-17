@@ -21,7 +21,7 @@ return new class extends Migration
             $table->smallInteger('equipamiento', unsigned: true);
             $table->string('puertas', 10);
             $table->char('asientos', 1);
-            $table->decimal('autonomia', 6, unsigned: true);
+            $table->decimal('autonomia');
             $table->string("color", 30);
             $table->string("foto")->nullable();
             $table->text("descripcion")->nullable();
