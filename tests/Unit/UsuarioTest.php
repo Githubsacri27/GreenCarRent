@@ -5,13 +5,15 @@ namespace Tests\Unit;
 use App\Models\Usuario;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
+use \PHPUnit\Framework\Attributes\Test;
 use Illuminate\Support\Facades\Hash;
 
 class UsuarioTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /** @test */
+    /** @Test */
+    
     public function it_can_create_and_save_a_usuario()
     {
         // Crear un usuario y guardarlo en la base de datos

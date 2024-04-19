@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('modelo', 100);
             $table->string('marca', 30);
             $table->string('motor', 20);
-            $table->string('transmision', 20);
+            $table->string('cambio', 20);
             $table->smallInteger('equipamiento', unsigned: true);
             $table->string('puertas', 10);
             $table->char('asientos', 1);

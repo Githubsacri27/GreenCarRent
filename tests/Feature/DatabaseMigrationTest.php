@@ -10,7 +10,7 @@ class DatabaseMigrationTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    /** @Test */
     public function all_tables_are_created()
     {
         // Verificar que existe todas las tablas

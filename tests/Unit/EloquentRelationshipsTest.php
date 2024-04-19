@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Vehiculo;
 use App\Models\Alquiler;
@@ -19,7 +20,7 @@ class EloquentRelationshipsTest extends TestCase
     
     use DatabaseTransactions;
 
-    /** @test */
+    /** @Test */
     public function a_vehicle_can_have_many_rentals()
     {
         $vehicle = Vehiculo::factory()->create();
@@ -32,7 +33,7 @@ class EloquentRelationshipsTest extends TestCase
         $this->assertEquals(2, $vehicle->alquiler->count());
     }
 
-    /** @test */
+    /** @Test */
     public function a_rental_belongs_to_a_vehicle()
     {
         $vehicle = Vehiculo::factory()->create();
@@ -42,7 +43,7 @@ class EloquentRelationshipsTest extends TestCase
         $this->assertTrue($alquiler->auto->is($vehicle));
     }
 
-    /** @test */
+    /** @Test */
     public function a_rental_belongs_to_a_client()
     {
         $client = Cliente::factory()->create();
