@@ -40,7 +40,7 @@ class EloquentRelationshipsTest extends TestCase
 
         $alquiler = Alquiler::factory()->create(['vehiculoID' => $vehicle->id]);
 
-        $this->assertTrue($alquiler->auto->is($vehicle));
+        $this->assertTrue($alquiler->vehiculo->is($vehicle));
     }
 
     /** @Test */
