@@ -26,14 +26,12 @@ class Alquiler extends Model
         'clienteID',
     ];
 
-    public function cliente(): BelongsTo
-    {
+    public function cliente(): BelongsTo{
         return $this->belongsTo(Cliente::class, "clienteID", "id");
     }
 
 
-    public function vehiculo(): BelongsTo
-    {
+    public function vehiculo(): BelongsTo{
         return $this->belongsTo(Vehiculo::class, "vehiculoID", "id");
     }
 }
