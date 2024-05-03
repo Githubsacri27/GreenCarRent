@@ -1,3 +1,24 @@
+> **Notas**
+> PHP 8.1 es requirido.
+
+## Installations / Instructions
+
+``` instalar/descomprimir proyecto```
+
+``` composer install ```
+
+``` cp .env.example .env ```
+
+``` php artisan key:generate ```
+
+Abrir el archivo `.env` y configurar `database` con el nombre `name`, `host`, y `password`
+
+``` php artisan storage:link ```
+
+``` php artisan migrate --seed ```
+
+``` php artisan serve ```
+
 ## Niveles de Acceso & Permisos
 
 
@@ -5,7 +26,7 @@
 
 - **Nombre de usuario:** ``` clientecliente ```
 
-- **Contraseña:** ``` Focr12345@ ```
+- **Contraseña:** ``` Focr12345p ```
 
 ### Empleado:
 
@@ -24,8 +45,3 @@
 - **conf:** ``` env.testing ```
 - **Comando Test** ``` php artisan test --env=testing    ```
 - **Pruebas Unitarias** ``` carpeta Unit ```
-
-## Biliotecas usadas
-- **Faker** 
-## Test
-Faker es una biblioteca PHP que genera datos falsos para ti. Se ha utilizado para generar los test. Viene incluido con la instalación de laravel.

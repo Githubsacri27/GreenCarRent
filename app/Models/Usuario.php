@@ -23,11 +23,7 @@ class Usuario extends Authenticatable
      */
 
     public $timestamps = false;
-
-
     protected $table = 'usuario';
-
-
 
     /**
      * The attributes that are mass assignable.
@@ -59,7 +55,7 @@ class Usuario extends Authenticatable
 
 
     /**
-     * Get the parent accounteable model (cliente or staff).
+     * Llama al modelo (cliente o Empleado).
      */
     public function utenteable() : MorphTo
     {

@@ -23,7 +23,7 @@ class VehiculoFactory extends Factory
             'motor' => 'Eléctrico',
             'cambio' => 'Automático',
             'equipamiento' => $this->faker->numberBetween(1, 5),
-            'puertas' => $this->faker->numberBetween(2, 5),
+            'puertas' => $this->faker->numberBetween(4, 5),
             'asientos' => $this->faker->numberBetween(2, 7),
             'autonomia' => $this->faker->numberBetween(150, 600),
             'color' => $this->faker->safeColorName(),

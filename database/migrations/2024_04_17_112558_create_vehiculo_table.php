@@ -9,8 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void{
         Schema::create('vehiculo', function (Blueprint $table) {
             $table->id();
             $table->char('matricula', 7)->unique();
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->string('marca', 30);
             $table->string('motor', 20);
             $table->string('cambio', 20);
-            $table->smallInteger('equipamiento', unsigned: true);
+            $table->string('equipamiento', 100);
             $table->string('puertas', 10);
             $table->char('asientos', 1);
             $table->decimal('autonomia');
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->date("emision");
             $table->date("vencimiento");
             $table->decimal("costoDiario", 6);
+            $table->timestamps();
         });
     }
 
