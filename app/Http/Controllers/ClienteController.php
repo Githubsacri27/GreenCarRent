@@ -13,10 +13,9 @@ use Illuminate\Validation\Rules\Password;
 class ClienteController extends Controller
 {
     /**
-     * Muestra la lista de clientes en la base de datos.
+     * Muestra la lista de clientes
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $clientes = Cliente::paginate(10);
 
         if($request->ajax()){
@@ -29,10 +28,9 @@ class ClienteController extends Controller
 
 
     /**
-     * Muestra el formulario para crear un nuevo cliente.
+     * Muestra el formulario de login.
      */
-    public function create()
-    {
+    public function create(){
         return view("public.login");
     }
 
@@ -73,28 +71,25 @@ class ClienteController extends Controller
 
 
     /**
-     * Proporciona la página donde puede editar la información personal del cliente.
+     * Muestra la vista donde el cliente puede editar la información personal.
      */
     public function editProfile()
     {
         return view("cliente.cliente-edit-profile");
     }
 
-
     /**
-     * Proporciona la página donde puede cambiar la contraseña del cliente.
+     * Muestra la vista donde puede cambiar la contraseña el cliente.
      */
-    public function editPassword()
-    {
+    public function editPassword(){
         return view("cliente.cliente-edit-password");
     }
 
 
     /**
-     * Actualiza la información personal del cliente en la base de datos con los datos enviados.
+     * Actualiza la información personal del cliente.
      */
-    public function updateProfile(Request $request)
-    {
+    public function updateProfile(Request $request){
         $request->validate([
             'nombre' => 'required|alpha:ascii|max:30',
             'apellidos' => 'required|alpha:ascii|max:30',
@@ -110,7 +105,7 @@ class ClienteController extends Controller
 
 
     /**
-     * Actualizar la contraseña del cliente en la base de datos
+     * Actualizar la contraseña del cliente
      */
     public function updatePassword(Request $request)
     {
@@ -141,10 +136,9 @@ class ClienteController extends Controller
 
 
     /**
-     * Eliminar los clientes seleccionados de la base de datos.
+     * Eliminar los clientes seleccionados
      */
-    public function deleteSelected(Request $request)
-{
+    public function deleteSelected(Request $request){
     $ids = $request->input('ids');
     if (is_array($ids)) {
         Usuario::where("utenteable_type", "App\Models\Cliente")->whereIn("utenteable_id", $ids)->delete();
@@ -166,13 +160,10 @@ class ClienteController extends Controller
     return response()->json(['error' => 'No se proporcionaron IDs'], 400);
 }
 
-
-
     /**
-     * Elimina todos los clientes del sistema
+     * Elimina todos los clientes
      */
-    public function deleteAll()
-    {
+    public function deleteAll(){
         Usuario::where("utenteable_type", "App\Models\Cliente")->delete();
         DB::table('cliente')->delete();
         StorageController::deleteDirectory(public_path("storage/cliente"));

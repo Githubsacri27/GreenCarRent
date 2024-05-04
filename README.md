@@ -1,7 +1,4 @@
-> **Notas**
-> PHP 8.1 es requirido.
-
-## Installations / Instructions
+## Instrucciones
 
 ``` instalar/descomprimir proyecto```
 

@@ -31,9 +31,6 @@ class VehiculoController extends Controller
     }
 
 
-
-
-
     /**
      * Muestra el formulario para crear un nuevo vehiculo
      */
