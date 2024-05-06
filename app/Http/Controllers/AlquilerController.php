@@ -10,67 +10,76 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * Controlador para gestionar alquileres de vehículos.
+ */
 class AlquilerController extends Controller
 {
     /**
-     * Muestra al cliente los detalles de la página del Alquiler
+     * Muestra los detalles de la página del Alquiler para el cliente autenticado.
+     *
+     * @return \Illuminate\View\View Vista de detalles del alquiler para el cliente.
      */
-    public function mostrar() {
+    public function mostrar()
+    {
         $alquiler = Alquiler::where("clienteID", Auth::user()->utenteable->id)->where("activo", true)->first();
         return view("cliente.cliente-alquiler", ["alquiler" => $alquiler]);
     }
 
-
     /**
-     * Guarda un nuevo alquiler en la base de datos
+     * Guarda un nuevo alquiler en la base de datos.
+     *
+     * @param \Illuminate\Http\Request $request Datos de la solicitud de alquiler.
+     * @return \Illuminate\Http\RedirectResponse Redirecciona a la vista de catálogo con un mensaje de éxito o error.
      */
-    public function store(Request $request){
-    if (Gate::allows("doesntHaveAlquiler")) {
-        // Verifica si las propiedades existen en el $request antes de intentar descifrarlas
-        if ($request->has('id') && $request->has('fechaRecogida') && $request->has('lugarRecogida') && 
-            $request->has('horaRecogida') && $request->has('fechaEntrega') && $request->has('lugarEntrega') && 
-            $request->has('horaEntrega')) {
+    public function store(Request $request)
+    {
+        if (Gate::allows("doesntHaveAlquiler")) {
+            // Verifica si las propiedades existen en el request antes de descifrarlas
+            if ($request->has('id') && $request->has('fechaRecogida') && $request->has('lugarRecogida') &&
+                $request->has('horaRecogida') && $request->has('fechaEntrega') && $request->has('lugarEntrega') &&
+                $request->has('horaEntrega')) {
 
-            $request->id = Crypt::decrypt($request->id);
-            $request->fechaRecogida = Crypt::decrypt($request->fechaRecogida);
-            $request->lugarRecogida = Crypt::decrypt($request->lugarRecogida);
-            $request->horaRecogida = Crypt::decrypt($request->horaRecogida);
-            $request->fechaEntrega = Crypt::decrypt($request->fechaEntrega);
-            $request->lugarEntrega = Crypt::decrypt($request->lugarEntrega);
-            $request->horaEntrega = Crypt::decrypt($request->horaEntrega);
+                $request->id = Crypt::decrypt($request->id);
+                $request->fechaRecogida = Crypt::decrypt($request->fechaRecogida);
+                $request->lugarRecogida = Crypt::decrypt($request->lugarRecogida);
+                $request->horaRecogida = Crypt::decrypt($request->horaRecogida);
+                $request->fechaEntrega = Crypt::decrypt($request->fechaEntrega);
+                $request->lugarEntrega = Crypt::decrypt($request->lugarEntrega);
+                $request->horaEntrega = Crypt::decrypt($request->horaEntrega);
 
-            $vehiculo = Vehiculo::find($request->id);
-            if ($vehiculo) {
-                $importe = $vehiculo->costoDiario * date_diff(date_create($request->fechaRecogida), date_create($request->fechaEntrega))->days;
+                $vehiculo = Vehiculo::find($request->id);
+                if ($vehiculo) {
+                    $importe = $vehiculo->costoDiario * date_diff(date_create($request->fechaRecogida), date_create($request->fechaEntrega))->days;
 
-                $vehiculo->alquiler()->create([
-                    "clienteID" => Auth::user()->utenteable->id,
-                    "fechaRecogida" => $request->fechaRecogida,
-                    "lugarRecogida" => $request->lugarRecogida,
-                    "horaRecogida" => $request->horaRecogida,
-                    "fechaEntrega" => $request->fechaEntrega,
-                    "lugarEntrega" => $request->lugarEntrega,
-                    "horaEntrega" => $request->horaEntrega,
-                    "importe" => $importe,
-                    "activo" => true
-                ]);
+                    $vehiculo->alquiler()->create([
+                        "clienteID" => Auth::user()->utenteable->id,
+                        "fechaRecogida" => $request->fechaRecogida,
+                        "lugarRecogida" => $request->lugarRecogida,
+                        "horaRecogida" => $request->horaRecogida,
+                        "fechaEntrega" => $request->fechaEntrega,
+                        "lugarEntrega" => $request->lugarEntrega,
+                        "horaEntrega" => $request->horaEntrega,
+                        "importe" => $importe,
+                        "activo" => true
+                    ]);
 
-                return redirect()->route("catalogo")->with("success", "¡Reserva realizada con éxito!");
+                    return redirect()->route("catalogo")->with("success", "¡Reserva realizada con éxito!");
+                } else {
+                    return redirect()->route("catalogo")->withErrors("error", "Vehículo no encontrado");
+                }
             } else {
-                return redirect()->route("catalogo")->withErrors("error", "Vehículo no encontrado");
+                return redirect()->route("catalogo")->withErrors("error", "Datos de solicitud incompletos");
             }
         } else {
-            return redirect()->route("catalogo")->withErrors("error", "Datos de solicitud incompletos");
+            return redirect()->route("catalogo")->withErrors("error", "Reserva imposible");
         }
-    } else {
-        return redirect()->route("/catalogo")->withErrors("error", "Reserva imposible");
     }
-}
-
-
 
     /**
      * Muestra la lista de alquileres para el año actual.
+     *
+     * @return \Illuminate\View\View Vista de la lista de alquileres para el año actual.
      */
     public function mostrarAlquilerdelaño()
     {
@@ -79,50 +88,59 @@ class AlquilerController extends Controller
         return view("empleado.alquiler-index", ["alquileres" => $alquileres]);
     }
 
-
     /**
      * Devuelve la lista de alquileres para el año actual y el mes seleccionado presente en la base de datos.
+     *
+     * @param int $month Mes para filtrar los alquileres.
+     * @return \Illuminate\Support\Collection Colección de alquileres.
      */
-    public function obtenerAlquilerMensual($month) {
+    public function obtenerAlquilerMensual($month)
+    {
         $year = Carbon::today()->year;
-        $startDate =Carbon::parse($year . "-" . $month)->startOfMonth()->format("Y-m-d");
-        $endDate =Carbon::parse($year . "-" . $month)->endOfMonth()->format("Y-m-d");
+        $startDate = Carbon::parse($year . "-" . $month)->startOfMonth()->format("Y-m-d");
+        $endDate = Carbon::parse($year . "-" . $month)->endOfMonth()->format("Y-m-d");
 
-        return Alquiler::whereBetween("fechaRecogida", [$startDate, $endDate])->orWhereBetween("fechaEntrega", [$startDate, $endDate])
-            ->orWhere(function($query) use ($endDate, $startDate) {
+        return Alquiler::whereBetween("fechaRecogida", [$startDate, $endDate])
+            ->orWhereBetween("fechaEntrega", [$startDate, $endDate])
+            ->orWhere(function ($query) use ($startDate, $endDate) {
                 $query->where("fechaRecogida", "<", $startDate)->where("fechaEntrega", ">", $endDate);
-            })->get();
+            })
+            ->get();
     }
-
 
     /**
      * Muestra la lista de alquileres para el año actual y el mes seleccionado.
+     *
+     * @param \Illuminate\Http\Request $request Datos de la solicitud.
+     * @return \Illuminate\View\View Vista de la lista de alquileres.
      */
     public function mostrarAlquileresMensual(Request $request)
     {
         $request->validate([
-            "mese" => "required|integer|min:0|max:12",
+            "mese" => "required|integer|min:1|max:12",
         ]);
 
         if ($request->mese == 0) {
             $alquileres = $this->mostrarAlquilerdelaño();
-        }
-        else {
+        } else {
             $alquileres = $this->obtenerAlquilerMensual($request->mese);
         }
 
         return view("empleado.alquiler-index", ["alquileres" => $alquileres]);
     }
 
-
     /**
-     * Muestra la página que muestra el número total de alquileres para cada mes del año actual.
+     * Muestra la página con estadísticas del número total de alquileres para cada mes del año actual.
+     *
+     * @return \Illuminate\View\View Vista con estadísticas.
      */
-    public function getEstadisticas() {
+    public function getEstadisticas()
+    {
         $array = [];
-        for ($month =1; $month<=12; $month++) {
-            $array[$month-1] = count($this->obtenerAlquilerMensual($month));
+        for ($month = 1; $month <= 12; $month++) {
+            $array[$month - 1] = count($this->obtenerAlquilerMensual($month));
         }
-        return  view("admin.estadisticas", ["value" => $array]);
+
+        return view("admin.estadisticas", ["value" => $array]);
     }
 }
