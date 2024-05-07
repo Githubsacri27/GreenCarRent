@@ -4,7 +4,7 @@
 <section>
     <div class="text-center">
         <p id="slogan" class="display-4 fw-bold">HAZ TU VIAJE MEMORABLE</p>
-        <a href="{{route("documentacion")}}" target="_blank" class="btn btn-primary">
+        <a href="{{secure_url("https://githubsacri27.github.io/DocuGCR/")}}" target="_blank" class="btn btn-primary">
             Documentación
             <span id="play-icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">

@@ -13,10 +13,6 @@ use \App\Http\Controllers\EmpleadoController;
 Route::view('/', "public/home")->name('home');
 
 //Ruta de acceso público
-Route::get('/documentacion', function () {
-    return response()->file(public_path('documentacion.pdf'), ['content-type' => 'application/pdf']);
-})
-    ->name("documentacion");
 
 Route::view("/condiciones", "public/condiciones")->name('condiciones');
 Route::view("/contacto", "public/contacto")->name('contacto');

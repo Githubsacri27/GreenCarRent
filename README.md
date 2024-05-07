@@ -37,6 +37,11 @@ Abrir el archivo `.env` y configurar `database` con el nombre `name`, `host`, y 
 
 - **Contraseña:** ``` Focr12345@ ```
 
+## Documentación:##
+- **Generar con comando**
+```php C:\xampp\htdocs\phpDocumentor.phar run -d C:\xampp\htdocs\GreenCarRent -t C:\xampp\htdocs\doc --ignore="vendor"```
+
+
 ## Test
 - **Nombre de Base de datos para el test** ``` testgreencarrent ```
 - **conf:** ``` env.testing ```
