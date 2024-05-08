@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
@@ -39,6 +40,10 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Verificar si el usuario autenticado tiene permiso para crear un empleado
+        $this->authorize('isAdmin');
+
         // Validación de la solicitud entrante.
         $request->validate([
             'nombre' => 'required|alpha:ascii|max:30',
@@ -54,7 +59,7 @@ class EmpleadoController extends Controller
 
         // Crear el empleado y el usuario asociado.
         $empleado = Empleado::create(array_merge($request->only("nombre", "apellidos"), ["foto" => $foto]));
-        $empleado->usuario()->create($request->only("username", "password"));
+        $empleado->usuario()->create($request->only("username", "password","utenteable_type", "utenteable_id"));
 
         // Si se proporciona una foto, se guarda.
         if ($request->hasFile("foto")) {
@@ -127,13 +132,13 @@ class EmpleadoController extends Controller
     {
         // Elimina la foto de perfil.
         StorageController::findAndDeleteImage($empleado->id, "empleado");
-        
+
         // Elimina el usuario asociado al empleado.
         $empleado->usuario->delete();
-        
+
         // Elimina el empleado de la base de datos.
         $empleado->delete();
-        
+
         return redirect()->route("empleado.index");
     }
 }

@@ -1,7 +1,7 @@
 @extends("admin.layout.admin-layout")
 @section("title", "Estadísticas")
 @section("content")
-    <section class="management-section" style="background-image: url({{url('img/texture.jpg')}})">
+    <section class="management-section">
         <div class="container mt-4">
             <div class="d-flex justify-content-between mb-3">
                 <h2>Resumen de Alquileres {{ \Carbon\Carbon::today()->year }}</h2>

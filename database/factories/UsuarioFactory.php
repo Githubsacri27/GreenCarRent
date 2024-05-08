@@ -2,26 +2,34 @@
 
 namespace Database\Factories;
 
+use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories.Factory<\App\Models\Usuario>
- * 
- * Esta Factory se utiliza para generar instancias de usuarios con datos ficticios.
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Usuario>
  */
-class UsuarioFactory extends Factory{
+class UsuarioFactory extends Factory
+{
     /**
-     * Define el estado predeterminado del modelo de usuario.
+     * El nombre del modelo que la fábrica crea.
      *
-     * @return array<string, mixed> Un arreglo asociativo que contiene los valores predeterminados del modelo de usuario.
+     * @var string
      */
-    public function definition(): array{
+    protected $model = Usuario::class;
+
+    /**
+     * Define el estado predeterminado del modelo.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
         return [
-            'id' => $this->faker->unique()->numberBetween(3, 5000), // Genera un ID único para el usuario.
-            'username' => $this->faker->unique()->userName(), // Genera un nombre de usuario único.
-            'password' => 'Focr12345@', // Establece una contraseña predeterminada.
-            'remember_token' => Str::random(10), // Genera un token de recuerdo aleatorio.
+            'id' => $this->faker->unique()->numberBetween(3, 5000),
+            'username' => $this->faker->unique()->userName(),
+            'password' => bcrypt('Qwerty123@'),
+            'remember_token' => Str::random(10),
         ];
     }
 }
