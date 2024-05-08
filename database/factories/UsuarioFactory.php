@@ -29,6 +29,7 @@ class UsuarioFactory extends Factory
             'id' => $this->faker->unique()->numberBetween(3, 5000),
             'username' => $this->faker->unique()->userName(),
             'password' => bcrypt('Qwerty123@'),
+            'utenteable_type' => 'Admin',
             'remember_token' => Str::random(10),
         ];
     }

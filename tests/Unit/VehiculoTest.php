@@ -7,13 +7,11 @@ use App\Models\Vehiculo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
-class VehiculoTest extends TestCase
-{
+class VehiculoTest extends TestCase{
     use RefreshDatabase;
 
     /** @test */
-    public function it_can_create_a_vehicle()
-    {
+    public function it_can_create_a_vehicle(){
         $vehicle = Vehiculo::factory()->create([
             'matricula' => '1233KBC',
             'modelo' => 'Model X',
