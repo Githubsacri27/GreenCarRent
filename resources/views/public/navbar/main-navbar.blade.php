@@ -1,7 +1,10 @@
 <header data-bs-theme="dark">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('home') }}">Inicio</a>
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <span class="fas fa-home" aria-hidden="true"></span>
+                <span class="sr-only">Inicio</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
