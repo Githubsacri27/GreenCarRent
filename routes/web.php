@@ -19,6 +19,8 @@ Route::view("/contacto", "public/contacto")->name('contacto');
 Route::get("/catalogo", [VehiculoController::class, "search"])->name('catalogo');
 Route::post("/catalogo", [AlquilerController::class, "store"])->name('alquiler.store')->middleware("can:doesntHaveAlquiler");
 Route::get("/catalogo/vehiculo-{id}", [VehiculoController::class, "mostrar"])->name('vehiculo.mostrar');
+Route::post("/catalogo", [AlquilerController::class, 'store'])->name('alquiler.store')->middleware("can:doesntHaveAlquiler");
+
 
 
 // Rutas de inicio, registro y logout

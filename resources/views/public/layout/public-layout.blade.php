@@ -10,7 +10,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     @stack('javascript')
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 @include("public.navbar.main-navbar")
 @yield('content')
 @include("components.footer")

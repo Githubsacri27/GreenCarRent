@@ -7,14 +7,14 @@ window.addEventListener('load', function() {
     let fechaRecogida = document.getElementById('fechaRecogida');
     let fechaEntrega = document.getElementById('fechaEntrega');
 
-    // Si `fechaRecogida` existe en el DOM, establece los atributos `min` y `max`
+    // Si fechaRecogida existe, establece los atributos min y max
     if (fechaRecogida) {
-        // Establece atributos mínimos y máximos para `fechaRecogida`
+        // Establece atributos mínimos y máximos para fechaRecogida
         fechaRecogida.min = dateToString(nextDay);
         let oneYearAfterToday = addYear(today, 1);
         fechaRecogida.max = dateToString(oneYearAfterToday);
 
-        // Escucha el evento de cambio en `fechaRecogida` y actualiza `fechaEntrega`
+        // Escucha el evento de cambio en fechaRecogida y actualiza fechaEntrega
         fechaRecogida.addEventListener('change', function() {
             let nextDay = getNextDay(new Date(fechaRecogida.value));
             if (fechaEntrega) {

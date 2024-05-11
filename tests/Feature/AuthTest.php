@@ -11,8 +11,7 @@ class AuthTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_admin_can_access_admin_routes()
-    {
+    public function an_admin_can_access_admin_routes(){
         // Crear un usuario admin
         $adminUser = Usuario::factory()->create(['utenteable_type' => 'Admin']);
 

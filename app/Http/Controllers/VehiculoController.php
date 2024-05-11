@@ -147,7 +147,7 @@ class VehiculoController extends Controller
     }
 
     /**
-     * Busca los vehículos que cumplen con los parámetros especificados.
+     * Busca los vehículos que cumplen con los filtros.
      *
      * @param \Illuminate\Http.Request $request Solicitud HTTP entrante con los parámetros de búsqueda.
      * @return \Illuminate\View.View Vista del catálogo con los resultados de la búsqueda.
