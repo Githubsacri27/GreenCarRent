@@ -25,7 +25,7 @@ class ClienteFactory extends Factory{
             'nombre' => $this->faker->firstName(), // Genera un nombre.
             'apellidos' => $this->faker->lastName(), // Genera apellidos.
             'domicilio' => $this->faker->state(), // Genera un estado/domicilio.
-            'ocupacion' => date_diff(Carbon::now(), $fechaNacimiento)->y <= 25 ? "Estudiante" : $this->faker->randomElement(['No especificado', 'Empleado', 'Autónomo', 'Desempleado']), // Asigna ocupación en función de la edad.
+            'ocupacion' => date_diff(Carbon::now(), $fechaNacimiento)->y <= 25 ? "Estudiante" : $this->faker->randomElement(['No especificado', 'Trabajador', 'Autónomo', 'Desempleado']), // Asigna ocupación en función de la edad.
             'fechaNacimiento' => $fechaNacimiento->format("Y-m-d"), // Formatea la fecha de nacimiento.
             'foto' => "storage/avatar.png", // Foto predeterminada.
         ];

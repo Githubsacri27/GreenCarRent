@@ -79,6 +79,7 @@ class ClienteController extends Controller
 
         return redirect()->route("cliente.edit.profile");
     }
+    
 
     /**
      * Muestra la vista donde el cliente puede editar la información personal.

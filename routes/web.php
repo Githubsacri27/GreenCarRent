@@ -16,11 +16,12 @@ Route::view('/', "public/home")->name('home');
 
 Route::view("/condiciones", "public/condiciones")->name('condiciones');
 Route::view("/contacto", "public/contacto")->name('contacto');
+Route::view("/about", "public/about")->name('about');
 Route::get("/catalogo", [VehiculoController::class, "search"])->name('catalogo');
 Route::post("/catalogo", [AlquilerController::class, "store"])->name('alquiler.store')->middleware("can:doesntHaveAlquiler");
 Route::get("/catalogo/vehiculo-{id}", [VehiculoController::class, "mostrar"])->name('vehiculo.mostrar');
 Route::post("/catalogo", [AlquilerController::class, 'store'])->name('alquiler.store')->middleware("can:doesntHaveAlquiler");
-
+Route::post('/reservar', [AlquilerController::class, 'store'])->name('reservar');
 
 
 // Rutas de inicio, registro y logout
@@ -65,6 +66,7 @@ Route::middleware("can:isClient")->prefix('client')->group(function () {
 
     Route::post('/alquiler', [AlquilerController::class, "mostrarAlquileresMensual"])
         ->name("alquiler.month");
+   
 });
 
 

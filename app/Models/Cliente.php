@@ -57,4 +57,9 @@ class Cliente extends Model{
     public function usuario(): MorphOne{
         return $this->morphOne(Usuario::class, 'utenteable');
     }
+
+    public function alquiler()
+    {
+        return $this->hasMany(Alquiler::class, "clienteID", "id");
+    }
 }

@@ -27,3 +27,30 @@ main.flex-fill {
     white-space: nowrap;
     border: 0;
 }
+
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-section {
+    position: relative;
+    z-index: 1;
+    padding-top: 100vh; 
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo semitransparente para mejorar la legibilidad */
+    color: #FFFFFF; 
+    padding: 90px 0; 
+    font-size: 1.4em;
+}

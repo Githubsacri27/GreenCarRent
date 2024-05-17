@@ -9,7 +9,7 @@
     <div class="alert alert-success text-center">{{ $message }}</div>
     @endif
     @if ($errors->any())
-    <div class="alert alert-danger text-center">
+    <div class="alert alert-danger text-center">{{$message }}
         <p>¡ATENCIÓN! Ocurrieron los siguientes errores:</p>
         <ul>
             @foreach ($errors->all() as $error)
@@ -32,7 +32,7 @@
         <section class="search-section">
             <form action="{{ route('catalogo') }}" method="GET" class="mb-5 mt-5">
                 <div class="input-group">
-                    <input type="search" id="search" name="search" class="form-control" placeholder="Busca un coche para alquilar..." value="{{ request()->input('search') }}">
+                    <input type="search" id="search" name="search" class="form-control" placeholder="Introduzca la marca o modelo del vehículo para alquilar" value="{{ request()->input('search') }}">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
 
@@ -46,8 +46,8 @@
                                     <span class="input-group-text">-</span>
                                     <input type="number" id="priceMax" name="priceMax" class="form-control" placeholder="Máximo" value="{{ request()->input('priceMax') }}">
                                 </div>
-                                <input type="range" class="form-range mt-2" min="0" max="5000" value="{{ request()->input('priceMin', 0) }}" step="50" name="priceMin">
-                                <input type="range" class="form-range mt-2" min="0" max="5000" value="{{ request()->input('priceMax', 5000) }}" step="50" name="priceMax">
+                                <input type="range" class="form-range mt-2" min="0" max="500" value="{{ request()->input('priceMin', 0) }}" step="50" name="priceMin">
+                                <input type="range" class="form-range mt-2" min="0" max="500" value="{{ request()->input('priceMax', 500) }}" step="10" name="priceMax">
                             </div>
                         </div>
 
@@ -118,7 +118,7 @@
             <div class="row">
                 @foreach($result as $alquiler)
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100 {{ $alquiler->disponible}}">
                         <img src="{{ asset($alquiler->foto) }}" class="card-img-top" alt="Imagen del vehículo">
                         <div class="card-body">
                             <h5 class="card-title">{{ $alquiler->modelo }}</h5>
@@ -135,7 +135,8 @@
                             </ul>
 
                             @can("isClient")
-                            <form action="{{ route('alquiler.store') }}" method="POST">
+                            @if ($alquiler->disponible)
+                            <form action="{{ route('reservar') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ Crypt::encrypt($alquiler->id) }}">
                                 <input type="hidden" name="fechaRecogida" value="{{ Crypt::encrypt(request()->input('fechaRecogida')) }}">
@@ -146,6 +147,9 @@
                                 <input type="hidden" name="horaEntrega" value="{{ Crypt::encrypt(request()->input('horaEntrega')) }}">
                                 <button class="btn btn-primary mt-2" type="submit">Reservar</button>
                             </form>
+                            @else
+                            <p class="text-danger mt-4">No disponible</p>
+                            @endif
                             @endcan
                         </div>
                     </div>

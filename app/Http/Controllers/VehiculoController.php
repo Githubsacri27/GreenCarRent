@@ -58,7 +58,7 @@ class VehiculoController extends Controller
             'equipamiento' => 'required|max:100',
             'puertas' => ['required', Rule::in(["4", "5"])],
             'asientos' => ['required', Rule::in(["2", "3", "4", "5", "6", "7"])],
-            'autonomia' => 'required|gt:0|lt:5000|decimal:0,2',
+            'autonomia' => 'required|gt:0|lt:1000|decimal:0,2',
             'color' => 'required|max:30',
             'foto' => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'descripcion' => 'nullable',
@@ -103,7 +103,7 @@ class VehiculoController extends Controller
             'equipamiento' => 'required|max:100',
             'puertas' => ['required', Rule::in(["4", "5"])],
             'asientos' => ['required', Rule::in(["2", "3", "4", "5", "6", "7"])],
-            'autonomia' => 'required|gt:0|lt:5000|decimal:0,2',
+            'autonomia' => 'required|gt:0|lt:1000|decimal:0,2',
             'color' => 'required|max:30',
             'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
             'descripcion' => 'nullable',
@@ -156,7 +156,7 @@ class VehiculoController extends Controller
         // Validación de la solicitud entrante.
         $request->validate([
             'priceMin' => 'nullable|integer|min:0|max:4950',
-            'priceMax' => 'nullable|integer|min:50|max:5000',
+            'priceMax' => 'nullable|integer|min:10|max:500',
             'asientos' => ['nullable', Rule::in(["2", "3", "4", "5", "6", "7"])],
         ]);
 
@@ -205,6 +205,10 @@ class VehiculoController extends Controller
                 })->paginate(10);
         } else {
             $result = [];
+        }
+        // Marcar los vehículos con alquiler activo como no disponibles.
+        foreach ($result as $vehiculo) {
+            $vehiculo->disponible = !$vehiculo->alquiler()->where('activo', true)->exists();
         }
 
         return view("public.catalogo", ["result" => $result]);

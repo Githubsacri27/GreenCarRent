@@ -19,6 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('catalogo') ? 'active' : '' }}" href="{{ route('catalogo') }}">Catálogo</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Quiénes somos</a>
+                    </li>
                     @auth
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('cliente.edit.profile') ? 'active' : '' }}" href="@can('isClient'){{ route('cliente.edit.profile') }}@endcan @can('isEmpleado'){{ route('vehiculo.index') }}@endcan @can('isAdmin'){{ route('cliente.index') }}@endcan">Zona personal</a>

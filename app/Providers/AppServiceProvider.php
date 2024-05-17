@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider{
 
         // Define la política para verificar si el usuario no tiene alquiler activo.
         Gate::define('doesntHaveAlquiler', function(Usuario $usuario) {
-            return Gate::allows("isClient") and !Alquiler::where("clienteID", $usuario->utenteable_id)->where("activo", true)->exists();
+            return Gate::allows("isClient") && !Alquiler::where("clienteID", $usuario->utenteable_id)->where("activo", true)->exists();
         });
     }
 }
