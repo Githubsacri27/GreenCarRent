@@ -105,12 +105,12 @@ class ClienteController extends Controller
     public function updateProfile(Request $request){
         // Validación de la solicitud entrante
         $request->validate([
-            'nombre' => 'required|alpha:ascii|max:30',
-            'apellidos' => 'required|alpha:ascii|max:30',
+            'nombre' => 'required|regex:/^[\pL\s]+$/u|max:30',
+            'apellidos' => 'required|regex:/^[\pL\s]+$/u|max:30',
             'username' => ['required', 'alpha_dash', 'min:8', 'max:30', Rule::unique("usuario", "username")->ignore(Auth::user())],
             'domicilio' => 'required|string|max:50',
-            'ocupacion' => ['required', Rule::in(['No especificado', 'Empleado', 'Autónomo', 'Estudiante', 'Desempleado'])],
-            'fechaNacimiento' => 'required|date|before:-19 years|after:-75 years',
+            'ocupacion' => ['required', Rule::in(['No especificado', 'Trabajador', 'Empleado', 'Autónomo', 'Estudiante', 'Desempleado'])],
+            'fechaNacimiento' => 'required|date|before:-18 years|after:-75 years',
         ]);
 
         Auth::user()->utenteable->update($request->except("username"));

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <title>
         @yield("title")
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     @include("public.navbar.main-navbar")
     @if ($errors->any())
@@ -30,24 +32,25 @@
     <p class="alert alert-success">{{ $message }}</p>
     @endif
 
-    <div class="wrapper-dashboard">
-        <div class="left-menu">
-            <h2>{{ Auth::user()->username }}</h2>
-            <form action="{{ route('cliente.update.image') }}" method="POST" enctype="multipart/form-data" onchange="this.submit()">
-                @csrf
-                @method('PUT')
-                @include("components.image-item", ["size" => "200px", "path" => Auth::user()->utenteable->foto, "id" => "foto"])
-            </form>
-            @include("cliente.navbar.cliente-navbar")
-        </div>
+    <section class="container my-5 pt-4">
+        <div class="text-center mb-4">
+            <div class="left-menu">
+                <h2>{{ Auth::user()->username }}</h2>
+                <form action="{{ route('cliente.update.image') }}" method="POST" enctype="multipart/form-data" onchange="this.submit()">
+                    @csrf
+                    @method('PUT')
+                    @include("components.image-item", ["size" => "200px", "path" => Auth::user()->utenteable->foto, "id" => "foto"])
+                </form>
+                @include("cliente.navbar.cliente-navbar")
+            </div>
 
-        <div class="right-menu">
-            <div class="schede">
-                @yield("content")
+            <div class="right-menu">
+                <div class="schede">
+                    @yield("content")
+                </div>
             </div>
         </div>
-    </div>
-    </div>
+    </section>
 </body>
 
 </html>

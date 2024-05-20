@@ -10,8 +10,7 @@ use Illuminate\Validation\Rules\Password;
 /**
  * Controlador para gestionar empleados.
  */
-class EmpleadoController extends Controller
-{
+class EmpleadoController extends Controller{
     /**
      * Muestra la lista de empleados con paginación.
      *
@@ -46,8 +45,8 @@ class EmpleadoController extends Controller
 
         // Validación de la solicitud entrante.
         $request->validate([
-            'nombre' => 'required|alpha:ascii|max:30',
-            'apellidos' => 'required|alpha:ascii|max:30',
+            'nombre' => 'required|regex:/^[\pL\s]+$/u|max:30',
+            'apellidos' => 'required|regex:/^[\pL\s]+$/u|max:30',
             'username' => 'required|alpha_dash|min:8|max:30|unique:usuario,username',
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'password_confirmation' => 'required',
@@ -92,8 +91,8 @@ class EmpleadoController extends Controller
     {
         // Validación de la solicitud entrante.
         $request->validate([
-            'nombre' => 'required|alpha:ascii|max:30',
-            'apellidos' => 'required|alpha:ascii|max:30',
+            'nombre' => 'required|regex:/^[\pL\s]+$/u|max:30',
+            'apellidos' => 'required|regex:/^[\pL\s]+$/u|max:30',
             'username' => ['required', 'alpha_dash', 'min:8', 'max:30', Rule::unique('usuario', 'username')->ignore($empleado->usuario)],
             'password' => ['nullable', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
