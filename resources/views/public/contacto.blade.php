@@ -1,9 +1,8 @@
 @extends("public.layout.public-layout")
 @section("title", "Contacto")
-
 @section("content")
 
-<section class="container my-5 pt-4">
+<section class="container my-5 py-5 text-center">
     <div class="row">
         <div class="col-md-6">
             <section class="bg-light p-4 rounded">
@@ -31,7 +30,7 @@
             </section>
         </div>
         <div class="col-md-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5993.741692700179!2d2.0734176!3d41.31167320000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49f3b0809fca9%3A0x3c5fdbdc8f8cf06c!2sAvis%20Alquiler%20de%20coches%20-%20Prat%20Llobregat%20Bcn!5e0!3m2!1ses!2ses!4v1711301255113!5m2!1ses!2ses" width="100%" height="300" class="border-0 rounded" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23979.867903520404!2d2.0594101332540475!3d41.29834450151296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a49e64847c8ea5%3A0xf32be942fb6f9bd7!2sAeropuerto%20Josep%20Tarradellas%20Barcelona-El%20Prat!5e0!3m2!1ses!2ses!4v1715950267988!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 </section>

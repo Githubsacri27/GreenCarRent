@@ -1,7 +1,7 @@
 @extends("public.layout.public-layout")
 @section("title", "Sign up")
 @section("content")
-<div class="vh-100 d-flex align-items-center justify-content-center" style="background-image: url({{ url('img/background3.jpg') }}); background-size: cover;">
+<div class="vh-100 d-flex align-items-center justify-content-center">
     <div class="card shadow p-4" style="width: 700px; border-radius: 8px;">
         <div class="text-center mb-4">
             <svg class="bi bi-person" xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" fill="currentColor" viewBox="0 0 16 16">

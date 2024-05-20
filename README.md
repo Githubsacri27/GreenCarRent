@@ -4,15 +4,17 @@
 
 ``` composer install ```
 
-``` cp .env.example .env ```
+``` copiar archivo .env.example y renombrar a .env ```
+
+Abrir el archivo `.env` y configurar `DB_DATABASE` con el nombre `greencarrent`, `DB_HOST`, `DB_USERNAME` y `DB_PASSWORD` con la configuración propia que se tenga del acceso a la base de datos.
 
 ``` php artisan key:generate ```
-
-Abrir el archivo `.env` y configurar `database` con el nombre `name`, `host`, y `password`
 
 ``` php artisan storage:link ```
 
 ``` php artisan migrate --seed ```
+
+``` composer require laravel/sanctum ```
 
 ``` php artisan serve ```
 
@@ -38,12 +40,15 @@ Abrir el archivo `.env` y configurar `database` con el nombre `name`, `host`, y 
 - **Contraseña:** ``` Focr12345@ ```
 
 ## Documentación:##
-- **Generar con comando**
-```php C:\xampp\htdocs\phpDocumentor.phar run -d C:\xampp\htdocs\GreenCarRent -t C:\xampp\htdocs\doc --ignore="vendor"```
 
+- **Consultar documentación técnica**
+``` https://githubsacri27.github.io/DocuGCR/ ```
 
 ## Test
+Para ejecutar las pruebas, hay que crear una base de datos nueva y un nuevo archivo env.testing
 - **Nombre de Base de datos para el test** ``` testgreencarrent ```
 - **conf:** ``` env.testing ```
-- **Comando Test** ``` php artisan test --env=testing    ```
-- **Pruebas Unitarias** ``` carpeta Unit ```
+- **Lanzar migraciones Test** ``` php artisan migration --env=testing     ```
+- **Lanzar sedeers Test** ``` php artisan db:seed --env=testing      ```
+- **Ejecutar Test** ``` php artisan test --env=testing    ```
+

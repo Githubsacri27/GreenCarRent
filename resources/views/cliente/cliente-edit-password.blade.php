@@ -2,18 +2,20 @@
 @section("title", "Cliente - Modificar Password")
 
 @section("content")
-    <div class="container mt-4">
-        <!-- Mostrar mensajes de error -->
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <p>Atención: Ocurrieron los siguientes errores:</p>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+<div class="container mt-5">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success text-center">{{ $message }}</div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger text-center">{{$message }}
+        <p>¡ATENCIÓN! Ocurrieron los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
         <!-- Diseño de la tarjeta -->
         <div class="card shadow-sm p-4 mb-4">

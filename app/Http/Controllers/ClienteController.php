@@ -21,8 +21,7 @@ class ClienteController extends Controller
      * @param \Illuminate\Http\Request $request Solicitud HTTP entrante.
      * @return \Illuminate\View\View|string Vista de la lista de clientes o renderizado si es una solicitud.
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $clientes = Cliente::paginate(10);
 
         if ($request->ajax()) {
@@ -37,8 +36,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\View\View Vista del formulario de inicio de sesión.
      */
-    public function create()
-    {
+    public function create(){
         return view("public.login");
     }
 
@@ -48,15 +46,14 @@ class ClienteController extends Controller
      * @param \Illuminate\Http\Request $request Solicitud HTTP entrante con los datos del nuevo cliente.
      * @return \Illuminate\Http\RedirectResponse Redirecciona a la ruta de edición de perfil del cliente.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         // Validación de la solicitud entrante
         $request->validate([
-            'nombre' => 'required|alpha:ascii|max:30',
-            'apellidos' => 'required|alpha:ascii|max:30',
+            'nombre' => 'required|regex:/^[\pL\s]+$/u|max:30',
+            'apellidos' => 'required|regex:/^[\pL\s]+$/u|max:30',
             'domicilio' => 'required|string|max:50',
             'ocupacion' => ['required', Rule::in(['No especificado', 'Empleado', 'Autónomo', 'Estudiante', 'Desempleado'])],
-            'fechaNacimiento' => 'required|date|before:-19 years|after:-75 years',
+            'fechaNacimiento' => 'required|date|before:-18 years|after:-75 years',
             'username' => 'required|alpha_dash|min:8|max:30|unique:usuario,username',
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'password_confirmation' => 'required',
@@ -86,8 +83,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\View\View Vista para editar la información personal del cliente.
      */
-    public function editProfile()
-    {
+    public function editProfile(){
         return view("cliente.cliente-edit-profile");
     }
 
@@ -96,8 +92,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\View\View Vista para editar la contraseña del cliente.
      */
-    public function editPassword()
-    {
+    public function editPassword(){
         return view("cliente.cliente-edit-password");
     }
 
@@ -107,8 +102,7 @@ class ClienteController extends Controller
      * @param \Illuminate\Http.Request $request Solicitud HTTP entrante con los datos actualizados.
      * @return \Illuminate\Http\RedirectResponse Redirecciona a la página anterior con un mensaje de éxito.
      */
-    public function updateProfile(Request $request)
-    {
+    public function updateProfile(Request $request){
         // Validación de la solicitud entrante
         $request->validate([
             'nombre' => 'required|alpha:ascii|max:30',
@@ -129,16 +123,16 @@ class ClienteController extends Controller
      * @param \Illuminate\Http\Request $request Solicitud HTTP entrante con la nueva contraseña.
      * @return \Illuminate\Http\RedirectResponse Redirecciona a la página anterior con un mensaje de éxito.
      */
-    public function updatePassword(Request $request)
-    {
+    public function updatePassword(Request $request){
         // Validación de la solicitud entrante
         $request->validate([
             'oldPassword' => 'required|current_password',
             'password' => ['required', 'confirmed', 'different:oldPassword', Password::min(8)->mixedCase()->numbers()],
             'password_confirmation' => 'required'
         ]);
+        // Actualizar la contraseña
+        Auth::user()->utenteable->usuario->update($request->only("password"));
 
-        Auth::user()->utenteable->update($request->except("password"));
         return redirect()->back()->with('success', 'Contraseña actualizada correctamente');
     }
 
@@ -148,8 +142,7 @@ class ClienteController extends Controller
      * @param \Illuminate\Http\Request $request Solicitud HTTP entrante con la nueva foto.
      * @return \Illuminate\Http\RedirectResponse Redirecciona a la página anterior con un mensaje de éxito.
      */
-    public function updateImage(Request $request)
-    {
+    public function updateImage(Request $request){
         $request->validate([
             'foto' => 'image|mimes:jpeg,jpg,png|max:2048',
         ]);
@@ -165,8 +158,7 @@ class ClienteController extends Controller
      * @param \Illuminate\Http\Request $request Solicitud HTTP entrante con los IDs de los clientes a eliminar.
      * @return \Illuminate\Http\JsonResponse Respuesta JSON con la URL de redirección o un mensaje de error.
      */
-    public function deleteSelected(Request $request)
-    {
+    public function deleteSelected(Request $request){
         $ids = $request->input('ids');
         if (is_array($ids)) {
             Usuario::where("utenteable_type", "App\Models\Cliente")->whereIn("utenteable_id", $ids)->delete();
@@ -193,8 +185,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse Redirecciona a la página de inicio de clientes.
      */
-    public function deleteAll()
-    {
+    public function deleteAll(){
         Usuario::where("utenteable_type", "App\Models\Cliente")->delete();
         DB::table('cliente')->delete();
         StorageController::deleteDirectory(public_path("storage/cliente"));
