@@ -1,5 +1,5 @@
 <div class="image-item-container">
-    <div class="img-item-cont" style="width: {{ $size }}; height: {{ $size }};">
+    <div class="img-item-cont">
         <label for="{{ $id }}">
             <input type="file" id="{{ $id }}" name="{{ $id }}" accept=".jpg, .jpeg, .png" data-id="image">
             <img data-id="image-item" class="image-item" src="{{ asset($path) }}" width="{{ $size }}" height="{{ $size }}">
