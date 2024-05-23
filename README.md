@@ -2,6 +2,8 @@
 
 ``` instalar/descomprimir proyecto```
 
+``` Crear base de datos```CREATE DATABASE greencarrent;
+
 ``` composer install ```
 
 ``` renombrar archivo .env.example a .env ```
@@ -14,7 +16,7 @@ Abrir el archivo `.env` y configurar campos `DB_DATABASE = greencarrent`, `DB_CO
 
 ``` php artisan storage:link ```
 
-``` php artisan migrate --seed ```
+``` php artisan migrate --seed ```Solo usar este comando sino dispone de la base de datos
 
 ``` php artisan serve ```
 
